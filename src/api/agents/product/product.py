@@ -84,10 +84,25 @@ def retrieve_products(items, index_name):
 
 
 @trace
-def find_products(context: str) -> Dict[str, any]:
+def find_products(context: str, num_retries: int = 3) -> Dict[str, any]:
     # Get product queries
     queries = prompty.execute("product.prompty", inputs={"context":context})
-    qs = json.loads(queries)
+    for retry_id in range(num_retries):
+        try: 
+            # add parsing code
+            if queries.startswith("queries:") or queries.startswith("Queries:"):
+                queries = queries[8:]
+
+            if queries.endswith(',\n]'):
+                queries = queries[:-3] + ']'
+
+            qs = json.loads(queries)
+
+            if 'queries' in qs:
+                qs = qs['queries']
+        except Exception as e:
+            print(f"Product agent failed to find products due to:\n{e}.\nRetrying {retry_id+1}/{num_retries} times...")
+            continue
     # Generate embeddings
     items = generate_embeddings(qs)
     # Retrieve products

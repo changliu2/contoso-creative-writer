@@ -9,7 +9,7 @@ model:
   configuration: 
     type: azure_openai
     azure_deployment: gpt-35-turbo
-    api_version: 2023-07-01-preview
+    api_version: 2024-06-01
 sample:
   article: this is an article about tents
   instructions: Generate a detailed prompt that helps a writer create a unique image for their story. 

@@ -5,7 +5,7 @@ from pathlib import Path
 from openai import AzureOpenAI
 from azure.identity import DefaultAzureCredential, get_bearer_token_provider
 
-def image_gen(image_prompt):
+def image_gen(image_prompt: str):
     import os
     import requests
 

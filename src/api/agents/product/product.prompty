@@ -8,7 +8,7 @@ model:
   configuration:
     type: azure_openai
     azure_deployment: gpt-4-evals
-    api_version: 2023-07-01-preview
+    api_version: 2024-06-01
   parameters:
     max_tokens: 1500
 sample:
@@ -28,7 +28,7 @@ Use the follow context to provide a set of specialized queries to the search ind
 
 # Response format
 The response format is a JSON array that contains a list of specialized queries 
-to make to the search index. Here is an example:
+to make to the search index. For example:
 
 context: Can you find a selection of outdoor apparel?
 queries:
@@ -40,12 +40,22 @@ queries:
   "outdoor clothing stores",
 ]
 
-This only an example of the output structure. You should make sure to use the context the user gives you
-to generate the queries.
+context: What do I need to cook food when camping?
+queries:
+[
+  "camping grill",
+  "outdoor fire starter",
+  "bunsen burner",
+  "fire wood",
+  "fire extinguisher",
+]
+
+You should make sure to use the context the user gives you to generate the queries.
 
 # Output format
 Only output the full array of specialized queries to make to the search index. Limit
 yoursef to 5 queries.
 
 user:
-{{context}}
+context: {{context}}
+queries:
